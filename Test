@@ -1,0 +1,97 @@
+@UntilDestroy({ checkProperties: true }) @Component({
+
+selector: 'tv-cycle-count-review-list',
+
+templateUrl: 'cycle-count-review-list.component.html', changeDetection: ChangeDetectionStrategy.OnPush,
+
+})
+
+export class cyclecountReviewListComponent @Input() site: IsiteResponse;
+
+extends List implements OnChanges
+
+@Input() ccId: string;
+
+@Input() productViewSummary: IProductViewSummary; @Input() productAttributeIds: string[];
+
+Input() totalProductAttributeValuesCount: number; @Input() availableFilters: IcycleCount ReviewAvailableFilters;
+
+_activeFilters: IcycleCountReviewFilters;
+
+listContext: IListContext;
+
+@Input() get activeFilters() {
+
+return this._activeFilters;
+
+}
+
+set activeFilters (activeFilters: IcycleCountReviewFilters) {
+
+this._activeFilters activeFilters; this.countResultFilters = Object.keys(activeFilters.countResults) .filter((key: string) -> activeFilters.countResults[key]) .map((key: string)-> REVIEW FILTERS_COUNT_RESULTS[key]);
+
+Input() isErpBasedCount: boolean = false;
+
+productTotals: IcycleCountReviewTotals;
+
+hasTotals: boolean = false;
+
+productTotalsLabel: string; totalItems: number;
+
+uniqueProducts: number; itemLabelsExist: boolean = false;
+
+inCatalog: boolean = false;
+
+private productTotalsSubscriber: Subscription;
+
+constructor(
+
+private cycleCountService: CycleCountService, private cd: ChangeDetectorRef,
+
+private translate: TranslateService
+
+super(
+
+((page, sortMode, searchTerm, pagesize )) => this.getData(( page, sortMode, searchters, pagesize }), () => this.cd.markForCheck()
+
+}
+
+ngonChanges() { this.refresh();
+
+private getData(context: IListContext): Observable<icyclecountReviewList> ( return of (this.getAttributeFiltersValue(this.activeFilters)).pipe(
+
+delay(0),
+
+switchup(attributefiltersValue -> this.cycleCountService.getCycleCountRevieData(
+
+this.site.siteld,
+
+this.ccld,
+
+this.productAttributelds,
+
+attributefiltersValue,
+
+context.page,
+
+context.pagesize, this.countResultFilters
+
+mergentap((cycleCountReviewlist: IcyclecountRevieList) => { return this.getProductTotals().pipe(
+
+map((productTotals: IcycleCountReviewTotals) => {
+
+this.totalItems cyclecountReviewlist.content.length; this.inCatalog IcycleCountReviewlist.content.some(
+
+this.productTotals = productTotals; this.productTotalsLabel this.getProductTotalsLabel(
+
+this.activeFilters.countResults, this.productTotals
+
+this.hasTotals true;
+
+this.uniqueProducts productTotals.uniqueProducts;
+
+this.cd.markForCheck();
+
+return cycleCountReviewlist;
+
+countResultFilters: TCycleCountReviewFiltersCountResults[];
